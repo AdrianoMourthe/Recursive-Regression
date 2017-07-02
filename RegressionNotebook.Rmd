@@ -19,8 +19,9 @@ source("recursiveRegression.R")
 ```{r, echo=TRUE, message=TRUE, warning=TRUE}
 lm_fit <- lm(Boston$medv~Boston$lstat)
 summary(lm_fit)
-p <- ggplot(Boston, aes(y=Boston$medv, x=Boston$lstat)) + geom_point() 
-p + stat_smooth(method = "lm", formula = y ~ x, size = 1)
+graph <- ggplot(Boston, aes(y=Boston$medv, x=Boston$lstat)) + geom_point() 
+graph + stat_smooth(method = "lm", formula = y ~ x, size = 1)
+plot(lm_fit)
 ```
 
 ##Exemplo de Regressão Simples Recursiva
@@ -50,4 +51,29 @@ for (i in 1:N){
 t
 ```
 
+##multivariate linear regression
+```{r}
+lm_fit_multi <- lm(Boston$medv~Boston$lstat + Boston$rm)
+summary(lm_fit_multi)
+plot(lm_fit)
+anova(lm_fit,lm_fit_multi)
+```
+
+```{r}
+source("recursiveRegression.R")
+par(ask=FALSE)
+n<-1
+X<- cbind(Boston$lstat,Boston$rm)
+N<-dim(X)[1]
+y<-matrix(Boston$medv)
+t<-numeric(3)
+P<-500*diag(n+2)
+mu<-1
+for (i in 1:N){
+  rls.step<-rls(c(1, X[i,]),y[i],t,P,mu)
+  t<-rls.step[[1]]
+  P<-rls.step[[2]]
+}
+t
+```
 
