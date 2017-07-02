@@ -1,8 +1,8 @@
 ---
 title: "RecursiveRegression"
 output:
-  html_notebook: default
   html_document: default
+  html_notebook: default
   pdf_document: default
 ---
 ```{r, include=FALSE}
@@ -14,14 +14,15 @@ source("recursiveRegression.R")
 ```
 
 ##Exemplo de Regressão Simples
-```{r, echo=TRUE}
+```{r, echo=TRUE, message=TRUE, warning=TRUE}
 lm_fit <- lm(Boston$medv~Boston$lstat)
 summary(lm_fit)
 p <- ggplot(Boston, aes(y=Boston$medv, x=Boston$lstat)) + geom_point() 
 p + stat_smooth(method = "lm", formula = y ~ x, size = 1)
 ```
+
 ##Exemplo de Regressão Simples Recursiva
-```{r , echo=TRUE}
+```{r, echo=TRUE, message=TRUE, warning=TRUE}
 par(ask=FALSE)
 n<-1
 X<- matrix(Boston$lstat)
