@@ -8,7 +8,7 @@ Material de estudo
 - Statistical foundations of machine learning
 https://www.otexts.org/1582
 
--Recursive least squares filter
+- Recursive least squares filter
 https://en.wikipedia.org/wiki/Recursive_least_squares_filter
 
 To do
