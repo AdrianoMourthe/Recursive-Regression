@@ -1,14 +1,14 @@
 {
     "collab_server" : "",
-    "contents" : "---\ntitle: \"RecursiveRegression\"\noutput:\n  html_document: default\n  html_notebook: default\n---\n```{r, echo=FALSE}\nrm(list=ls())\nlibrary(dplyr)\nlibrary(MASS)\nlibrary(ggplot2)\nsource(\"recursiveRegression.R\")\n```\n\n##Exemplo de Regressão Simples\n```{r}\nlm_fit <- lm(Boston$medv~Boston$lstat)\nsummary(lm_fit)\np <- ggplot(Boston, aes(y=Boston$medv, x=Boston$lstat)) + geom_point() \np + stat_smooth(method = \"lm\", formula = y ~ x, size = 1)\n```\n##Exemplo de Regressão Simples Recursiva\n```{r}\npar(ask=FALSE)\nn<-1\nX<- matrix(Boston$lstat)\nN<-length(X)\ny<-matrix(Boston$medv)\nt<-numeric(2)\nP<-500*diag(n+1)\nmu<-1\nfor (i in 1:N){\n  rls.step<-rls(c(1, X[i]),y[i],t,P,mu)\n  t<-rls.step[[1]]\n  P<-rls.step[[2]]\n  if(i == N){\n  plot(X[1:i],y[1:i],\n       xlim=c(0,40),\n       ylim=c(5,50),\n       main=paste(\"Forgetting factor mu<-\",mu))\n  lines(X[1:i],cbind(array(1,c(i,1)), X[1:i])%*%t,\n        col=\"red\",\n  )\n  }\n}\nt\n```\n\n\n",
+    "contents" : "---\ntitle: \"RecursiveRegression\"\noutput:\n  pdf_document: default\n  html_notebook: default\n  html_document: default\n---\n```{r, echo=FALSE}\nrm(list=ls())\nlibrary(dplyr)\nlibrary(MASS)\nlibrary(ggplot2)\nsource(\"recursiveRegression.R\")\n```\n\n##Exemplo de Regressão Simples\n```{r}\nlm_fit <- lm(Boston$medv~Boston$lstat)\nsummary(lm_fit)\np <- ggplot(Boston, aes(y=Boston$medv, x=Boston$lstat)) + geom_point() \np + stat_smooth(method = \"lm\", formula = y ~ x, size = 1)\n```\n##Exemplo de Regressão Simples Recursiva\n```{r}\npar(ask=FALSE)\nn<-1\nX<- matrix(Boston$lstat)\nN<-length(X)\ny<-matrix(Boston$medv)\nt<-numeric(2)\nP<-500*diag(n+1)\nmu<-1\nfor (i in 1:N){\n  rls.step<-rls(c(1, X[i]),y[i],t,P,mu)\n  t<-rls.step[[1]]\n  P<-rls.step[[2]]\n  if(i == N){\n  plot(X[1:i],y[1:i],\n       xlim=c(0,40),\n       ylim=c(5,50),\n       main=paste(\"Forgetting factor mu<-\",mu))\n  lines(X[1:i],cbind(array(1,c(i,1)), X[1:i])%*%t,\n        col=\"red\",\n  )\n  }\n}\nt\n```\n\n\n",
     "created" : 1499014839461.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "668145517",
+    "hash" : "1841600607",
     "id" : "925AD48D",
-    "lastKnownWriteTime" : 1499018542,
-    "last_content_update" : 1499018542118,
+    "lastKnownWriteTime" : 1499018638,
+    "last_content_update" : 1499018638549,
     "path" : "~/Documents/RecursiveRegression/RegressionNotebook.Rmd",
     "project_path" : "RegressionNotebook.Rmd",
     "properties" : {
