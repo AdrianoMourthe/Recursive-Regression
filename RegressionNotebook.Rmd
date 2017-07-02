@@ -1,0 +1,47 @@
+---
+title: "RecursiveRegression"
+output: html_notebook
+---
+```{r, echo=FALSE}
+rm(list=ls())
+library(dplyr)
+library(MASS)
+library(ggplot2)
+source("recursiveRegression.R")
+```
+
+##Exemplo de Regressão Simples
+```{r}
+lm_fit <- lm(Boston$medv~Boston$lstat)
+summary(lm_fit)
+p <- ggplot(Boston, aes(y=Boston$medv, x=Boston$lstat)) + geom_point() 
+p + stat_smooth(method = "lm", formula = y ~ x, size = 1)
+```
+##Exemplo de Regressão Simples Recursiva
+```{r}
+par(ask=FALSE)
+n<-1
+X<- matrix(Boston$lstat)
+N<-length(X)
+y<-matrix(Boston$medv)
+t<-numeric(2)
+P<-500*diag(n+1)
+mu<-1
+for (i in 1:N){
+  rls.step<-rls(c(1, X[i]),y[i],t,P,mu)
+  t<-rls.step[[1]]
+  P<-rls.step[[2]]
+  if(i == N){
+  plot(X[1:i],y[1:i],
+       xlim=c(0,40),
+       ylim=c(5,50),
+       main=paste("Forgetting factor mu<-",mu))
+  lines(X[1:i],cbind(array(1,c(i,1)), X[1:i])%*%t,
+        col="red",
+  )
+  }
+}
+t
+```
+
+
